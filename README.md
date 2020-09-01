@@ -1,2 +1,2 @@
 # ReactApps
-Apps developed for learning React JS.
+Web apps developed for learning React JS.
