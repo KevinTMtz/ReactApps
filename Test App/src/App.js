@@ -6,17 +6,19 @@ import Person from './Person/Person.js'
 class App extends Component {
   state = {
     persons: [
-      {name: 'Kevin', age: 28},
+      {name: 'Kevin', age: 20},
       {name: 'Mario', age: 19},
       {name: 'Sebas', age: 21}
-    ]
+    ],
+    otherState: 'Some other value',
+    showPersons: false
   }
 
   buttonNameHandler = (newName) => {
     console.log('Clicked');
     // This merges with state
     this.setState({persons: [
-      {name: newName, age: 28},
+      {name: newName, age: 20},
       {name: 'Mario', age: 19},
       {name: 'Sebas', age: 21}
     ]})
@@ -24,10 +26,15 @@ class App extends Component {
 
   textNameHandler = (event) => {
     this.setState({persons: [
-      {name: 'Kevin', age: 28},
+      {name: 'Kevin', age: 20},
       {name: 'Mario', age: 19},
       {name: event.target.value, age: 21}
     ]})
+  }
+
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow})
   }
   
   render() {
@@ -44,17 +51,21 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Hi, I am a Web App</h1>
-        <Person name={this.state.persons[0].name} 
-                age={this.state.persons[0].age}>I love learning!</Person>
-        <Person name={this.state.persons[1].name} 
-                age={this.state.persons[1].age}/>
-        <Person name={this.state.persons[2].name} 
-                age={this.state.persons[2].age}
-                click={this.buttonNameHandler.bind(this, 'KevinTMtz')}
-                changed={this.textNameHandler}/>
-        <button onClick={() => this.buttonNameHandler('Kevin')}
+        { this.state.showPersons ? 
+          <div>
+            <Person name={this.state.persons[0].name} 
+                    age={this.state.persons[0].age}>I love learning!</Person>
+            <Person name={this.state.persons[1].name} 
+                    age={this.state.persons[1].age}/>
+            <Person name={this.state.persons[2].name} 
+                    age={this.state.persons[2].age}
+                    click={this.buttonNameHandler.bind(this, 'KevinTMtz')}
+                    changed={this.textNameHandler}/>
+          </div> : null
+        }
+        <button onClick={this.togglePersonsHandler}
                 style={style}>
-          I'm a button</button>
+          Toggle Persons</button>
       </div>
     );
   }
@@ -65,7 +76,7 @@ class App extends Component {
 // const App = props => {
 //   const [ personsState, setPersonsState ] = useState({
 //     persons: [
-//       {name: 'Kevin', age: 28},
+//       {name: 'Kevin', age: 20},
 //       {name: 'Mario', age: 19},
 //       {name: 'Sebas', age: 21}
 //     ]
@@ -76,7 +87,7 @@ class App extends Component {
 //   const buttonNameHandler = () => {
 //     // This overrides state
 //     setPersonsState({persons: [
-//         {name: 'KevinTMtz', age: 28},
+//         {name: 'KevinTMtz', age: 20},
 //         {name: 'Mario', age: 19},
 //         {name: 'Sebas', age: 21}
 //       ]
