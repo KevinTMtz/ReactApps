@@ -1,42 +1,46 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person.js'
+import Person from './Person/Person.js';
 
 //Using class components
 class App extends Component {
   state = {
     persons: [
-      {name: 'Kevin', age: 20},
-      {name: 'Mario', age: 19},
-      {name: 'Sebas', age: 21}
+      { name: 'Kevin', age: 20 },
+      { name: 'Mario', age: 19 },
+      { name: 'Sebas', age: 21 },
     ],
     otherState: 'Some other value',
-    showPersons: false
-  }
+    showPersons: false,
+  };
 
   buttonNameHandler = (newName) => {
     console.log('Clicked');
     // This merges with state
-    this.setState({persons: [
-      {name: newName, age: 20},
-      {name: 'Mario', age: 19},
-      {name: 'Sebas', age: 21}
-    ]})
-  }
+    this.setState({
+      persons: [
+        { name: newName, age: 20 },
+        { name: 'Mario', age: 19 },
+        { name: 'Sebas', age: 21 },
+      ],
+    });
+  };
 
   textNameHandler = (event) => {
-    this.setState({persons: [
-      {name: 'Kevin', age: 20},
-      {name: 'Mario', age: 19},
-      {name: event.target.value, age: 21}
-    ]})
-  }
+    this.setState({
+      persons: [
+        { name: 'Kevin', age: 20 },
+        { name: 'Mario', age: 19 },
+        { name: event.target.value, age: 21 },
+      ],
+    });
+  };
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons: !doesShow})
-  }
-  
+    this.setState({ showPersons: !doesShow });
+  };
+
   render() {
     const style = {
       backgroundColor: 'black',
@@ -45,7 +49,7 @@ class App extends Component {
       border: '1px solid black',
       borderRadius: '10px',
       padding: '10px',
-      cursor: 'pointer'
+      cursor: 'pointer',
     };
 
     let persons = null;
@@ -53,25 +57,20 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person name={this.state.persons[0].name} 
-                  age={this.state.persons[0].age}>I love learning!</Person>
-          <Person name={this.state.persons[1].name} 
-                  age={this.state.persons[1].age}/>
-          <Person name={this.state.persons[2].name} 
-                  age={this.state.persons[2].age}
-                  click={this.buttonNameHandler.bind(this, 'KevinTMtz')}
-                  changed={this.textNameHandler}/>
+          {this.state.persons.map((person) => {
+            return <Person name={person.name} age={person.age} />;
+          })}
         </div>
       );
     }
 
     return (
-      <div className="App">
+      <div className='App'>
         <h1>Hi, I am a Web App</h1>
         {persons}
-        <button onClick={this.togglePersonsHandler}
-                style={style}>
-          Toggle Persons</button>
+        <button onClick={this.togglePersonsHandler} style={style}>
+          Toggle Persons
+        </button>
       </div>
     );
   }
@@ -103,11 +102,11 @@ class App extends Component {
 //   return (
 //     <div className="App">
 //       <h1>Hi, I am a Web App</h1>
-//       <Person name={personsState.persons[0].name} 
+//       <Person name={personsState.persons[0].name}
 //               age={personsState.persons[0].age}>I love learning!</Person>
-//       <Person name={personsState.persons[1].name} 
+//       <Person name={personsState.persons[1].name}
 //               age={personsState.persons[1].age}/>
-//       <Person name={personsState.persons[2].name} 
+//       <Person name={personsState.persons[2].name}
 //               age={personsState.persons[2].age}/>
 //       <button onClick={buttonNameHandler}>I'm a button</button>
 //     </div>
