@@ -42,11 +42,11 @@ class App extends Component {
   };
 
   render() {
-    const style = {
-      backgroundColor: 'black',
+    const buttonStyle = {
+      backgroundColor: 'green',
       font: 'inherit',
       color: 'white',
-      border: '1px solid black',
+      border: '2px solid black',
       borderRadius: '10px',
       padding: '10px',
       cursor: 'pointer',
@@ -70,13 +70,25 @@ class App extends Component {
           })}
         </div>
       );
+
+      buttonStyle.backgroundColor = 'red';
+    }
+
+    let classNames = [];
+    if (this.state.persons.length <= 2) {
+      classNames.push('red');
+    }
+
+    if (this.state.persons.length <= 1) {
+      classNames.push('bold');
     }
 
     return (
       <div className='App'>
         <h1>Hi, I am a Web App</h1>
+        <p className={classNames.join(' ')}>Aditional text</p>
         {persons}
-        <button onClick={this.togglePersonsHandler} style={style}>
+        <button onClick={this.togglePersonsHandler} style={buttonStyle}>
           Toggle Persons
         </button>
       </div>
