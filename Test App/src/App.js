@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person.js';
 
 //Using class components
@@ -74,19 +74,19 @@ class App extends Component {
       buttonStyle.backgroundColor = 'red';
     }
 
-    let classNames = [];
+    let assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classNames.push('red');
+      assignedClasses.push(classes.red);
     }
 
     if (this.state.persons.length <= 1) {
-      classNames.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     return (
-      <div className='App'>
+      <div className={classes.App}>
         <h1>Hi, I am a Web App</h1>
-        <p className={classNames.join(' ')}>Aditional text</p>
+        <p className={assignedClasses.join(' ')}>Aditional text</p>
         {persons}
         <button onClick={this.togglePersonsHandler} style={buttonStyle}>
           Toggle Persons
