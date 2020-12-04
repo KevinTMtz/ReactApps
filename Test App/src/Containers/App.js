@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+
 import classes from './App.css';
-import Person from '../Components/Persons/Person/Person';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import Persons from '../Components/Persons/Persons';
+import Cockpit from '../Components/Cockpit/Cockpit';
 
 //Using class components
 class App extends Component {
@@ -44,86 +45,28 @@ class App extends Component {
 
   render() {
     let persons = null;
-    let buttonClass = '';
 
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <ErrorBoundary key={person.id}>
-                <Person
-                  changed={(event) => this.textNameHandler(event, person.id)}
-                  click={() => this.deletePersonHandler(index)}
-                  name={person.name}
-                  age={person.age}
-                />
-              </ErrorBoundary>
-            );
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          deleted={this.deletePersonHandler}
+          changed={this.textNameHandler}
+        />
       );
-
-      buttonClass = classes.red;
-    }
-
-    let assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
     }
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I am a Web App</h1>
-        <p className={assignedClasses.join(' ')}>Aditional text</p>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+        />
         {persons}
-        <button onClick={this.togglePersonsHandler} className={buttonClass}>
-          Toggle Persons
-        </button>
       </div>
     );
   }
 }
 
 export default App;
-
-// import React, { useState } from 'react';
-// Using functional components
-// const App = props => {
-//   const [ personsState, setPersonsState ] = useState({
-//     persons: [
-//       {name: 'Kevin', age: 20},
-//       {name: 'Mario', age: 19},
-//       {name: 'Sebas', age: 21}
-//     ]
-//   });
-
-//   const [otherState, setOtherState] = useState ('Other state')
-
-//   const buttonNameHandler = () => {
-//     // This overrides state
-//     setPersonsState({persons: [
-//         {name: 'KevinTMtz', age: 20},
-//         {name: 'Mario', age: 19},
-//         {name: 'Sebas', age: 21}
-//       ]
-//     });
-//   };
-
-//   return (
-//     <div className="App">
-//       <h1>Hi, I am a Web App</h1>
-//       <Person name={personsState.persons[0].name}
-//               age={personsState.persons[0].age}>I love learning!</Person>
-//       <Person name={personsState.persons[1].name}
-//               age={personsState.persons[1].age}/>
-//       <Person name={personsState.persons[2].name}
-//               age={personsState.persons[2].age}/>
-//       <button onClick={buttonNameHandler}>I'm a button</button>
-//     </div>
-//   );
-// }
