@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import classes from './Cockpit.css';
 
 const Cockpit = (props) => {
+  useEffect(() => {
+    setTimeout(() => {
+      alert('Saved data to cloud!');
+    }, 1000);
+
+    return () => {
+      console.log('Cleanup work!');
+    };
+  }, []);
+
   const assignedClasses = [];
   let buttonClass = '';
   if (props.showPersons) {
     buttonClass = classes.Red;
   }
 
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     assignedClasses.push(classes.Red);
   }
 
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     assignedClasses.push(classes.Bold);
   }
 
@@ -28,4 +38,4 @@ const Cockpit = (props) => {
   );
 };
 
-export default Cockpit;
+export default React.memo(Cockpit);

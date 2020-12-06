@@ -5,14 +5,8 @@ import Person from './Person/Person';
 
 class Persons extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return true;
+    return nextProps.persons !== this.props.persons ? true : false;
   }
-
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    return { message: 'Snapshot!' };
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {}
 
   render() {
     return this.props.persons.map((person, index) => {
