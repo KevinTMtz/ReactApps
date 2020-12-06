@@ -4,7 +4,6 @@ import classes from './App.css';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 
-//Using class components
 class App extends Component {
   state = {
     persons: [
@@ -15,6 +14,10 @@ class App extends Component {
     otherState: 'Some other value',
     showPersons: false,
   };
+
+  static getDerivedStateFromProps(props, state) {
+    return state;
+  }
 
   textNameHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex((p) => {
@@ -32,7 +35,6 @@ class App extends Component {
   };
 
   deletePersonHandler = (personIndex) => {
-    //const persons = this.state.persons.slice();
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({ persons: persons });
@@ -59,6 +61,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Cockpit
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler}
