@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import classes from './Person.css';
+import PropTypes from 'prop-types';
 
 // Also can be used with React.Fragment
 import Aux from '../../../Hoc/Aux';
 import withClass from '../../../Hoc/WithClass';
+import classes from './Person.css';
 
 class Person extends Component {
+  constructor() {
+    super();
+    this.inputElementRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.inputElementRef.current.focus();
+  }
+
   render() {
     return (
       <Aux>
@@ -14,6 +24,7 @@ class Person extends Component {
         </p>
         <p>{this.props.children}</p>
         <input
+          ref={this.inputElementRef}
           type='text'
           onChange={this.props.changed}
           value={this.props.name}
@@ -22,5 +33,12 @@ class Person extends Component {
     );
   }
 }
+
+Person.propTypes = {
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func,
+};
 
 export default withClass(Person, classes.Person);
