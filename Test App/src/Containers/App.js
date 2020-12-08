@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
+import Aux from '../Hoc/Aux';
+import withClass from '../Hoc/WithClass';
 
 class App extends Component {
   state = {
@@ -59,7 +61,7 @@ class App extends Component {
     }
 
     return (
-      <div className={classes.App}>
+      <Aux>
         <Cockpit
           title={this.props.appTitle}
           showPersons={this.state.showPersons}
@@ -67,9 +69,9 @@ class App extends Component {
           clicked={this.togglePersonsHandler}
         />
         {persons}
-      </div>
+      </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
