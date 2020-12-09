@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import classes from './Cockpit.css';
+import AuthContext from '../../Context/Auth-context';
 
 const Cockpit = (props) => {
+  const toggleBtnRef = useRef(null);
+
+  useEffect(() => {
+    toggleBtnRef.current.click();
+  }, []);
+
   const assignedClasses = [];
   let buttonClass = '';
   if (props.showPersons) {
@@ -21,9 +28,16 @@ const Cockpit = (props) => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(' ')}>Aditional text</p>
-      <button onClick={props.clicked} className={buttonClass}>
+      <button
+        ref={toggleBtnRef}
+        onClick={props.clicked}
+        className={buttonClass}
+      >
         Toggle Persons
       </button>
+      <AuthContext.Consumer>
+        {(context) => <button onClick={context.login}>Log in</button>}
+      </AuthContext.Consumer>
     </div>
   );
 };

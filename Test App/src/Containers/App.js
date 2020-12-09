@@ -5,6 +5,7 @@ import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 import Aux from '../Hoc/Aux';
 import withClass from '../Hoc/WithClass';
+import AuthContext from '../Context/Auth-context';
 
 class App extends Component {
   state = {
@@ -16,6 +17,7 @@ class App extends Component {
     changeCounter: 0,
     otherState: 'Some other value',
     showPersons: false,
+    authenticated: false,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -50,6 +52,10 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   };
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
   render() {
     let persons = null;
 
@@ -65,13 +71,20 @@ class App extends Component {
 
     return (
       <Aux>
-        <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          personsLength={this.state.persons.length}
-          clicked={this.togglePersonsHandler}
-        />
-        {persons}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler,
+          }}
+        >
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}
+          />
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }
