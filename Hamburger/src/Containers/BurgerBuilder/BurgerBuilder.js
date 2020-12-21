@@ -3,47 +3,61 @@ import React, { Component } from 'react';
 import Aux from '../../Hoc/Aux';
 import Burger from '../../Components/Burger/Burger';
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls';
+import Modal from '../../Components/UI/Modal/Modal';
+import OrderSummary from '../../Components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
+  bacon: 0.5,
   salad: 0.5,
   cheese: 0.7,
   meat: 1.5,
-  bacon: 0.5,
 };
 
 class BurgerBuilder extends Component {
   state = {
     ingredients: { bacon: 0, salad: 0, cheese: 0, meat: 0 },
     totalPrice: 3.99,
+    unpurchaseable: true,
   };
 
+  updatePurchaseState(ingredients) {
+    const sum = Object.keys(ingredients)
+      .map((igKey) => ingredients[igKey])
+      .reduce((newSum, element) => newSum + element, 0);
+    this.setState({ unpurchaseable: sum === 0 });
+  }
+
   addIngredientHandler = (type) => {
-    const newCount = this.state.ingredients[type] + 1;
     const updatedIngredients = {
       ...this.state.ingredients,
     };
+
+    const newCount = updatedIngredients[type] + 1;
     updatedIngredients[type] = newCount;
     const newPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
     this.setState({
       ingredients: updatedIngredients,
       totalPrice: newPrice,
     });
+    this.updatePurchaseState(updatedIngredients);
   };
 
   removeIngredientHandler = (type) => {
-    if (this.state.ingredients[type] <= 0) {
+    if (this.state.ingredients[type] === 0) {
       return;
     }
-    const newCount = this.state.ingredients[type] - 1;
     const updatedIngredients = {
       ...this.state.ingredients,
     };
+
+    const newCount = updatedIngredients[type] - 1;
     updatedIngredients[type] = newCount;
     const newPrice = this.state.totalPrice - INGREDIENT_PRICES[type];
     this.setState({
       ingredients: updatedIngredients,
       totalPrice: newPrice,
     });
+    this.updatePurchaseState(updatedIngredients);
   };
 
   render() {
@@ -58,11 +72,15 @@ class BurgerBuilder extends Component {
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients} />
+        <Modal>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
         <BuildControls
           price={this.state.totalPrice.toFixed(2)}
-          ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
+          ingredientAdded={this.addIngredientHandler}
           disabled={disabledInfo}
+          unpurchaseable={this.state.unpurchaseable}
         />
       </Aux>
     );
