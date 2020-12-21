@@ -3,5 +3,50 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin: 32px auto;
+  margin: 0px auto;
+}
+
+.OrderButton {
+  background-color: #3593da;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  margin-top: 16px;
+  cursor: pointer;
+  color: white;
+  font-family: inherit;
+  font-size: 1.05em;
+  padding: 5px 10px;
+}
+
+.OrderButton:hover,
+.OrderButton:active {
+  background-color: #6fc1ff;
+  color: black;
+}
+
+.OrderButton:disabled {
+  background-color: #869abd;
+  cursor: not-allowed;
+  color: #ccc;
+}
+
+.OrderButton:not(:disabled) {
+  animation: enable 0.3s linear;
+}
+
+@keyframes enable {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.TotalPrice {
+  margin-top: 0;
 }
