@@ -1,0 +1,11 @@
+.Posts {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 80%;
+  margin: 16px auto;
+  padding: 16px;
+  border: 1px solid rgb(142, 142, 142);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
