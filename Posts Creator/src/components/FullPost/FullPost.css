@@ -1,0 +1,38 @@
+.FullPost {
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+  padding: 16px;
+  border: 1px solid rgb(142, 142, 142);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.Edit label {
+  display: block;
+  color: grey;
+}
+
+.Edit button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  color: #fa923f;
+  font-weight: bold;
+  transition: all 0.3s ease-out;
+}
+
+.Edit button:hover,
+.Edit button:active {
+  color: #521751;
+}
+
+.Edit button.Delete {
+  color: red;
+}
+
+.Edit button.Delete:hover,
+.Edit button.Delete:active {
+  color: darkred;
+}
