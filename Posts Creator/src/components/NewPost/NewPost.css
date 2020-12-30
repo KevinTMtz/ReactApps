@@ -21,7 +21,7 @@
   display: block;
   width: 80%;
   box-sizing: border-box;
-  border: 1px solid black;
+  border: 1px solid rgb(142, 142, 142);
   outline: none;
   font: inherit;
   margin: auto;
@@ -32,9 +32,9 @@
   margin: 16px 0;
   padding: 10px;
   font: inherit;
-  border: 1px solid #fa923f;
+  border: 1px solid #3fc2fa;
   background-color: transparent;
-  color: #fa923f;
+  color: #3fc2fa;
   cursor: pointer;
   border-radius: 5px;
   transition: all 0.3s ease-out;
@@ -43,5 +43,5 @@
 .NewPost button:hover,
 .NewPost button:active {
   color: white;
-  background-color: #fa923f;
+  background-color: #3fc2fa;
 }
