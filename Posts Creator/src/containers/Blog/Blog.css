@@ -1,11 +1,24 @@
-.Posts {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  width: 80%;
-  margin: 16px auto;
-  padding: 16px;
-  border: 1px solid rgb(142, 142, 142);
-  border-radius: 10px;
-  box-sizing: border-box;
+.Blog ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgb(142, 142, 142);
+}
+
+.Blog li {
+  display: inline-block;
+  margin: 16px;
+}
+
+.Blog a {
+  text-decoration: none;
+  color: black;
+  transition: all 0.25s ease-out;
+}
+
+.Blog a:hover,
+.Blog a:active {
+  border-bottom: 1px solid rgb(142, 142, 142);
 }
