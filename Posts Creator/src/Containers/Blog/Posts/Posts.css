@@ -8,3 +8,8 @@
   border-radius: 10px;
   box-sizing: border-box;
 }
+
+.Posts a {
+  text-decoration: none;
+  margin-bottom: 16px;
+}
