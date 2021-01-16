@@ -3,11 +3,14 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import './Blog.css';
 import Posts from './Posts/Posts';
-import asyncComponent from '../../Hoc/asyncComponent';
 
+import asyncComponent from '../../Hoc/asyncComponent';
 const AsyncNewPost = asyncComponent(() =>
   import('./NewPost/NewPost')
 );
+
+// Another way to lazy routing
+// const NewPost = React.lazy(() => import('./NewPost/NewPost'));
 
 class Blog extends Component {
   state = {
