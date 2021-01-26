@@ -1,0 +1,10 @@
+.Orders {
+  margin: auto;
+  width: 60%;
+}
+
+@media (max-width: 600px) {
+  .Orders {
+    width: 90%;
+  }
+}
