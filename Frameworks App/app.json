@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.kevintmtz.frameworksapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
