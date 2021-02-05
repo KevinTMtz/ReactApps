@@ -11,8 +11,9 @@
 }
 
 .InputElement {
+  transition: all 0.2s ease-out;
   outline: none;
-  border: 1px solid #3593da;
+  border: 2px solid #3593da;
   background-color: white;
   font: inherit;
   padding: 16px;
@@ -20,6 +21,12 @@
   width: 100%;
   border-radius: 16px;
   box-sizing: border-box;
+}
+
+.Invalid {
+  border: 2px solid #da3535;
+  color: #da3535;
+  background-color: #ffe7e7;
 }
 
 .InputElement:focus {
