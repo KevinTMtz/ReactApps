@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import CounterControl from '../../Components/CounterControl/CounterControl';
 import CounterOutput from '../../Components/CounterOutput/CounterOutput';
+import ListItem from '../../Components/ListItem/ListItem';
 
 class Counter extends Component {
   state = {
@@ -56,6 +57,21 @@ class Counter extends Component {
           label='Subtract 5'
           clicked={() => this.props.onDecrementCtr(5)}
         />
+        <hr />
+        <CounterControl
+          label='Store result'
+          clicked={this.props.onStoreResult}
+        />
+        <ul style={{ listStyleType: 'none', padding: '0' }}>
+          {this.props.resultsArr.map((result, index) => (
+            <ListItem
+              key={index}
+              clicked={() => this.props.onDeleteResult(index)}
+            >
+              {result}
+            </ListItem>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -63,6 +79,7 @@ class Counter extends Component {
 
 const mapStateToProps = (state) => ({
   ctr: state.counter,
+  resultsArr: state.results,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,6 +88,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onDecrementCtr: (value) =>
     dispatch({ type: 'DECREMENT', value: value }),
+  onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
+  onDeleteResult: (index) =>
+    dispatch({ type: 'DELETE_RESULT', index: index }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
