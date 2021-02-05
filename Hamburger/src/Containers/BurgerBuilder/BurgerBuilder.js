@@ -32,7 +32,14 @@ class BurgerBuilder extends Component {
         'https://hamburger-app-d3a32-default-rtdb.firebaseio.com/ingredients.json'
       )
       .then((response) => {
-        this.setState({ ingredients: response.data });
+        this.setState({
+          ingredients: {
+            bacon: response.data.bacon,
+            salad: response.data.salad,
+            cheese: response.data.cheese,
+            meat: response.data.meat,
+          },
+        });
       })
       .catch((error) => this.setState({ error: true }));
   }
