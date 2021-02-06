@@ -4,39 +4,9 @@ import { connect } from 'react-redux';
 import CounterControl from '../../Components/CounterControl/CounterControl';
 import CounterOutput from '../../Components/CounterOutput/CounterOutput';
 import ListItem from '../../Components/ListItem/ListItem';
+import * as actionTypes from '../../Store/actions';
 
 class Counter extends Component {
-  state = {
-    counter: 0,
-  };
-
-  counterChangedHandler = (action, value) => {
-    switch (action) {
-      case 'inc':
-        this.setState((prevState) => {
-          return { counter: prevState.counter + 1 };
-        });
-        break;
-      case 'dec':
-        this.setState((prevState) => {
-          return { counter: prevState.counter - 1 };
-        });
-        break;
-      case 'add':
-        this.setState((prevState) => {
-          return { counter: prevState.counter + value };
-        });
-        break;
-      case 'sub':
-        this.setState((prevState) => {
-          return { counter: prevState.counter - value };
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
   render() {
     return (
       <div>
@@ -60,7 +30,7 @@ class Counter extends Component {
         <hr />
         <CounterControl
           label='Store result'
-          clicked={this.props.onStoreResult}
+          clicked={() => this.props.onStoreResult(this.props.ctr)}
         />
         <ul style={{ listStyleType: 'none', padding: '0' }}>
           {this.props.resultsArr.map((result, index) => (
@@ -78,19 +48,23 @@ class Counter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ctr: state.counter,
-  resultsArr: state.results,
+  ctr: state.ctr.counter,
+  resultsArr: state.res.results,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onIncrementCtr: (value) => {
-    dispatch({ type: 'INCREMENT', value: value });
+    dispatch({ type: actionTypes.INCREMENT, value: value });
   },
   onDecrementCtr: (value) =>
-    dispatch({ type: 'DECREMENT', value: value }),
-  onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
+    dispatch({ type: actionTypes.DECREMENT, value: value }),
+  onStoreResult: (result) =>
+    dispatch({
+      type: actionTypes.STORE_RESULT,
+      result: result,
+    }),
   onDeleteResult: (index) =>
-    dispatch({ type: 'DELETE_RESULT', index: index }),
+    dispatch({ type: actionTypes.DELETE_RESULT, index: index }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
