@@ -2,7 +2,7 @@
   margin: 16px auto;
   padding: 8px;
   display: block;
-  width: 50%;
+  width: 70%;
   border: 2px solid #eee;
   border-radius: 10px;
   user-select: none;
@@ -11,4 +11,10 @@
 
 .ListItem:hover {
   background-color: rgb(255, 217, 217);
+}
+
+@media (max-width: 600px) {
+  .ListItem {
+    width: 80%;
+  }
 }
