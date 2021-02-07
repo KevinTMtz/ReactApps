@@ -20,9 +20,7 @@ class OrderSummary extends Component {
         <p>A delicious burger with the following ingredients:</p>
         <ul>{ingredientSummary}</ul>
         <p>
-          <strong>
-            Total price: ${this.props.totalPrice.toFixed(2)}
-          </strong>
+          <strong>Total price: ${this.props.totalPrice}</strong>
         </p>
         <p>Continue to Checkout?</p>
         <Button
