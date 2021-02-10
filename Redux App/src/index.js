@@ -20,10 +20,7 @@ const rootReducer = combineReducers({
 });
 
 const logger = (store) => (next) => (action) => {
-  console.log('[Middleware] Dispatching', action);
-  const result = next(action);
-  console.log('[Middleware] Next State', store.getState());
-  return result;
+  return next(action);
 };
 
 const composeEnhancers =

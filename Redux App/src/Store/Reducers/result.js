@@ -5,6 +5,14 @@ const initialState = {
   results: [],
 };
 
+const deleteResult = (state, action) => {
+  return updateObject(state, {
+    results: state.results.filter(
+      (result, index) => index !== action.index
+    ),
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.STORE_RESULT:
@@ -12,11 +20,7 @@ const reducer = (state = initialState, action) => {
         results: state.results.concat(action.result),
       });
     case actionTypes.DELETE_RESULT:
-      return updateObject(state, {
-        results: state.results.filter(
-          (result, index) => index !== action.index
-        ),
-      });
+      return deleteResult(state, action);
     default:
       return state;
   }
