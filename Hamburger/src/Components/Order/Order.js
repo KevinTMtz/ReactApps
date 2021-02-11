@@ -19,7 +19,7 @@ const order = (props) => {
           textTransform: 'capitalize',
           display: 'inline-block',
           margin: '0 4px',
-          border: '1px solid green',
+          border: '2px solid #5c9210',
           padding: '4px',
           borderRadius: '5px',
         }}

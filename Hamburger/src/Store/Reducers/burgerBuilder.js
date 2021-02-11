@@ -1,4 +1,4 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../Actions/actionTypes';
 
 const INGREDIENT_PRICES = {
   bacon: 0.5,
@@ -12,6 +12,8 @@ const initialState = {
   totalPrice: 3.99,
 };
 
+const returnFixedNum = (number) => +number.toFixed(2);
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
@@ -22,8 +24,9 @@ const reducer = (state = initialState, action) => {
           [action.ingredientKey]:
             state.ingredients[action.ingredientKey] + 1,
         },
-        totalPrice:
-          state.totalPrice + INGREDIENT_PRICES[action.ingredientKey],
+        totalPrice: returnFixedNum(
+          state.totalPrice + INGREDIENT_PRICES[action.ingredientKey]
+        ),
       };
     case actionTypes.REMOVE_INGREDIENT:
       return {
@@ -33,8 +36,9 @@ const reducer = (state = initialState, action) => {
           [action.ingredientKey]:
             state.ingredients[action.ingredientKey] - 1,
         },
-        totalPrice:
-          state.totalPrice - INGREDIENT_PRICES[action.ingredientKey],
+        totalPrice: returnFixedNum(
+          state.totalPrice - INGREDIENT_PRICES[action.ingredientKey]
+        ),
       };
     default:
       return state;
