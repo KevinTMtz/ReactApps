@@ -107,7 +107,7 @@ class ContactData extends Component {
 
     const order = {
       ingredients: this.props.ingredients,
-      totalPrice: this.props.totalPrice.toFixed(2),
+      totalPrice: this.props.totalPrice,
       orderData: formData,
     };
     axios
