@@ -25,14 +25,12 @@ export const fetchIngredientsFailed = () => ({
   type: actionTypes.FETCH_INGREDIENTS_FAILED,
 });
 
-export const initIngredients = () => {
-  return (dispatch) =>
-    axios
-      .get(
-        'https://hamburger-app-d3a32-default-rtdb.firebaseio.com/ingredients.json'
-      )
-      .then((response) => {
-        dispatch(setIngredients(response));
-      })
-      .catch(() => dispatch(fetchIngredientsFailed()));
-};
+export const initIngredients = () => (dispatch) =>
+  axios
+    .get(
+      'https://hamburger-app-d3a32-default-rtdb.firebaseio.com/ingredients.json'
+    )
+    .then((response) => {
+      dispatch(setIngredients(response));
+    })
+    .catch(() => dispatch(fetchIngredientsFailed()));
