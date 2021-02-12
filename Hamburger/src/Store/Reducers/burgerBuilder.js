@@ -8,8 +8,9 @@ const INGREDIENT_PRICES = {
 };
 
 const initialState = {
-  ingredients: { bacon: 0, salad: 0, cheese: 0, meat: 0 },
+  ingredients: null,
   totalPrice: 3.99,
+  error: false,
 };
 
 const returnFixedNum = (number) => +number.toFixed(2);
@@ -39,6 +40,17 @@ const reducer = (state = initialState, action) => {
         totalPrice: returnFixedNum(
           state.totalPrice - INGREDIENT_PRICES[action.ingredientKey]
         ),
+      };
+    case actionTypes.SET_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: action.ingredients,
+        error: false,
+      };
+    case actionTypes.FETCH_INGREDIENTS_FAILED:
+      return {
+        ...state,
+        error: true,
       };
     default:
       return state;
