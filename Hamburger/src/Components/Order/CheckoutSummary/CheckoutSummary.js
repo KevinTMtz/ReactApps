@@ -8,6 +8,9 @@ const checkoutSummary = (props) => {
   return (
     <div className={classes.CheckoutSummary}>
       <h1>You will love it!</h1>
+      <h3 className={classes.TotalPrice}>
+        Total price: ${props.totalPrice}
+      </h3>
       <div style={{ width: '100%', margin: 'auto' }}>
         <Burger ingredients={props.ingredients} />
       </div>
