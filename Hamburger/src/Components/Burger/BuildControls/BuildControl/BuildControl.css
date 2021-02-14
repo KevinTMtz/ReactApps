@@ -50,10 +50,12 @@
 .BuildControl .Less:active {
   background-color: #f08e38;
   color: white;
+  transform: scale(1.05);
 }
 
 .BuildControl .More:hover,
 .BuildControl .More:active {
   background-color: #4cbb27;
   color: white;
+  transform: scale(1.05);
 }
