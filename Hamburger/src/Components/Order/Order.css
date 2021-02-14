@@ -6,3 +6,13 @@
   box-sizing: border-box;
   border-radius: 10px;
 }
+
+.IngredientSpan {
+  text-transform: capitalize;
+  display: inline-block;
+  margin: 2px 4px;
+  background-color: #3a8f1e;
+  color: white;
+  padding: 4px;
+  border-radius: 5px;
+}

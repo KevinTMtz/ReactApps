@@ -24,6 +24,7 @@
 .OrderButton:active {
   background-color: #6fc1ff;
   color: black;
+  transform: scale(1.05);
 }
 
 .OrderButton:disabled {
