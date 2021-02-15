@@ -6,7 +6,7 @@ import NavigationItem from './NavigationItem/NavigationItem';
 const navigationItems = (props) => (
   <ul className={classes.NavigationItems}>
     <NavigationItem link='/auth' clicked={props.clickedItem}>
-      Log In
+      Authentication
     </NavigationItem>
     <NavigationItem link='/' exact clicked={props.clickedItem}>
       Build it

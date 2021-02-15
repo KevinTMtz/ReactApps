@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './Auth.css';
 import Input from '../../Components/UI/Input/Input';
 import Button from '../../Components/UI/Button/Button';
+import * as actions from '../../Store/Actions/index';
 
 class Auth extends Component {
   state = {
@@ -36,6 +38,7 @@ class Auth extends Component {
         touched: false,
       },
     },
+    isSignUp: true,
   };
 
   checkValidity(value, rules) {
@@ -77,6 +80,21 @@ class Auth extends Component {
     this.setState({ authForm: updatedAuthForm });
   };
 
+  onSubmitHandler = (event) => {
+    event.preventDefault();
+    this.props.onAuth(
+      this.state.authForm.email.value,
+      this.state.authForm.password.value,
+      this.state.isSignUp
+    );
+  };
+
+  switchAuthModeHandler = () => {
+    this.setState((prevState) => ({
+      isSignUp: !prevState.isSignUp,
+    }));
+  };
+
   render() {
     const formElementsArray = [];
     for (let key in this.state.authForm) {
@@ -103,13 +121,27 @@ class Auth extends Component {
 
     return (
       <div className={classes.Auth}>
-        <form>
+        <h2 className={classes.Title}>
+          {this.state.isSignUp ? 'Sign up' : 'Log in'}
+        </h2>
+        <form onSubmit={this.onSubmitHandler}>
           {form}
           <Button buttonType='Success'>Submit</Button>
         </form>
+        <Button
+          buttonType='Danger'
+          clicked={this.switchAuthModeHandler}
+        >
+          Switch to {this.state.isSignUp ? 'Log in' : 'Sign up'}
+        </Button>
       </div>
     );
   }
 }
 
-export default Auth;
+const mapDispatchToProps = (dispatch) => ({
+  onAuth: (email, password, isSignUp) =>
+    dispatch(actions.auth(email, password, isSignUp)),
+});
+
+export default connect(null, mapDispatchToProps)(Auth);
