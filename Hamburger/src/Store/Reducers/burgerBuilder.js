@@ -12,6 +12,7 @@ const initialState = {
   ingredients: null,
   totalPrice: 3.99,
   error: false,
+  building: false,
 };
 
 const returnFixedNum = (number) => +number.toFixed(2);
@@ -25,6 +26,7 @@ const addIngredient = (state, action) =>
     totalPrice: returnFixedNum(
       state.totalPrice + INGREDIENT_PRICES[action.ingredientKey]
     ),
+    building: true,
   });
 
 const removeIngredient = (state, action) =>
@@ -36,6 +38,7 @@ const removeIngredient = (state, action) =>
     totalPrice: returnFixedNum(
       state.totalPrice - INGREDIENT_PRICES[action.ingredientKey]
     ),
+    building: true,
   });
 
 const setIngedient = (state, action) =>
@@ -43,6 +46,7 @@ const setIngedient = (state, action) =>
     ingredients: action.ingredients,
     totalPrice: initialState.totalPrice,
     error: false,
+    building: false,
   });
 
 const reducer = (state = initialState, action) => {
