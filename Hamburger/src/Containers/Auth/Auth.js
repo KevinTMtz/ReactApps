@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import classes from './Auth.css';
 import Input from '../../Components/UI/Input/Input';
@@ -41,6 +42,15 @@ class Auth extends Component {
     },
     isSignUp: true,
   };
+
+  componentDidMount() {
+    if (
+      !this.props.buildingBurger &&
+      this.props.authRedirectPath !== '/'
+    ) {
+      this.props.onSetAuthRedirectPath();
+    }
+  }
 
   checkValidity(value, rules) {
     let isValid = true;
@@ -122,6 +132,8 @@ class Auth extends Component {
 
     if (this.props.loading) {
       form = <Spinner />;
+    } else if (this.props.isAuthenticated) {
+      form = <Redirect to={this.props.authRedirectPath} />;
     }
 
     let errorMessage = null;
@@ -154,11 +166,16 @@ class Auth extends Component {
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
   error: state.auth.error,
+  isAuthenticated: state.auth.token !== null,
+  buildingBurger: state.burgerBuilder.building,
+  authRedirectPath: state.auth.authRedirectPath,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onAuth: (email, password, isSignUp) =>
     dispatch(actions.auth(email, password, isSignUp)),
+  onSetAuthRedirectPath: () =>
+    dispatch(actions.setAuthRedirectPath('/')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
