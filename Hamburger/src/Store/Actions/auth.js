@@ -12,10 +12,17 @@ export const authSuccess = (token, userId) => ({
   userId: userId,
 });
 
+export const logout = () => ({
+  type: actionTypes.AUTH_LOGOUT,
+});
+
 export const authFailed = (error) => ({
   type: actionTypes.AUTH_FAILED,
   error: error,
 });
+
+export const checkAuthTimeout = (expirationTime) => (dispatch) =>
+  setTimeout(() => dispatch(logout()), expirationTime * 1000);
 
 export const auth = (email, password, isSignUp) => (dispatch) => {
   dispatch(authStart());
@@ -39,6 +46,9 @@ export const auth = (email, password, isSignUp) => (dispatch) => {
       dispatch(
         authSuccess(response.data.idToken, response.data.localId)
       );
+      dispatch(checkAuthTimeout(response.data.expiresIn));
     })
-    .catch((error) => dispatch(authFailed(error)));
+    .catch((error) =>
+      dispatch(authFailed(error.response.data.error))
+    );
 };
