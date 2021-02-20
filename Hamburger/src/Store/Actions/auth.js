@@ -32,6 +32,7 @@ export const checkAuthTimeout = (expirationTime) => (dispatch) =>
 
 export const auth = (email, password, isSignUp) => (dispatch) => {
   dispatch(authStart());
+
   const authData = {
     email: email,
     password: password,
