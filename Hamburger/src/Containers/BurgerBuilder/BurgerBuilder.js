@@ -11,7 +11,7 @@ import WithErrorHandler from '../../Hoc/WithErrorHandler/WithErrorHandler';
 import axios from '../../axios-orders';
 import * as actions from '../../Store/Actions/index';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     purchasing: false,
   };
