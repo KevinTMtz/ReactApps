@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development",
-    "build": "webpack"
+    "build": "rimraf dist && webpack --config webpack.prod.config.js --progress --profile --color --mode production"
   },
   "repository": "https://github.com/KevinTMtz/ReactApps.git",
   "author": "Kevin Torres Martínez <torresmtzkevin@gmail.com>",
@@ -27,7 +27,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "rimraf": "^3.0.2",
     "style-loader": "^2.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0",
