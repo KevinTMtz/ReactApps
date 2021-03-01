@@ -1,12 +1,13 @@
 const path = require('path');
-const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    chunkFilename: '[id].js',
     publicPath: '',
   },
   resolve: {
@@ -29,22 +30,27 @@ module.exports = {
             options: {
               importLoaders: 1,
               modules: true,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
             },
           },
           {
             loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: () => [
-                autoprefixer({
-                  browsers: ['> 1%', 'last 2 versions'],
-                }),
-              ],
-            },
           },
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 8000,
+        },
+      },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: `${__dirname}/src/index.html`,
+      filename: 'index.html',
+      inject: 'body',
+    }),
+  ],
 };
