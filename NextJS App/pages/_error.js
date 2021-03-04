@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 const indexPage = () => (
   <div>
-    <h1>Main Page</h1>
+    <h1>Something went wrong</h1>
     <p>
-      Go to <Link href='/auth'>Auth</Link>
+      Return to <Link href='/'>Main page</Link>
     </p>
   </div>
 );
