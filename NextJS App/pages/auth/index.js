@@ -4,9 +4,9 @@ import Router from 'next/router';
 
 import User from '../../components/User';
 
-const authIndexPage = () => (
+const authIndexPage = (props) => (
   <div>
-    <h1>Auth Index Page</h1>
+    <h1>Auth Index Page - {props.appName}</h1>
     <p>
       Go to <Link href='/'>Main Page</Link>
     </p>
@@ -14,5 +14,14 @@ const authIndexPage = () => (
     <User name='KevinTMtz' age='20' />
   </div>
 );
+
+authIndexPage.getInitialProps = () => {
+  const promise = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ appName: 'Super App' });
+    }, 0);
+  });
+  return promise;
+};
 
 export default authIndexPage;
