@@ -1,33 +1,18 @@
 import React from 'react';
-import Transition from 'react-transition-group/Transition';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import './Backdrop.css';
 
 const backdrop = (props) => (
-  <Transition
+  <CSSTransition
     in={props.show}
     timeout={400}
     mountOnEnter
     unmountOnExit
+    classNames='backdrop'
   >
-    {(state) => {
-      const cssClasses = [
-        'Backdrop',
-        state === 'entering'
-          ? 'BackdropOpen'
-          : state === 'exiting'
-          ? 'BackdropClosed'
-          : null,
-      ];
-
-      return (
-        <div
-          className={cssClasses.join(' ')}
-          onClick={props.closed}
-        ></div>
-      );
-    }}
-  </Transition>
+    <div className='Backdrop' onClick={props.closed}></div>
+  </CSSTransition>
 );
 
 export default backdrop;
