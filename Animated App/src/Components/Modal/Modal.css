@@ -14,11 +14,11 @@
   transition: all 0.3s ease-out;
 }
 
-.modal-enter-active {
+.ModalOpen {
   animation: openModal 0.4s ease-out forwards;
 }
 
-.modal-exit-active {
+.ModalClose {
   animation: closeModal 0.4s ease-out forwards;
 }
 
