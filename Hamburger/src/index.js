@@ -9,6 +9,7 @@ import {
   combineReducers,
 } from 'redux';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
 import './index.css';
 import App from './App';
@@ -16,6 +17,7 @@ import reportWebVitals from './reportWebVitals';
 import burgerBuilderReducer from './Store/Reducers/burgerBuilder';
 import orderReducer from './Store/Reducers/order';
 import authReducer from './Store/Reducers/auth';
+import { logoutSaga } from './Store/Sagas/auth';
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,
@@ -23,10 +25,14 @@ const rootReducer = combineReducers({
   auth: authReducer,
 });
 
+const sagaMiddleware = createSagaMiddleware();
+
 const store = createStore(
   rootReducer,
-  compose(applyMiddleware(thunk))
+  compose(applyMiddleware(thunk, sagaMiddleware))
 );
+
+sagaMiddleware.run(logoutSaga);
 
 ReactDOM.render(
   <React.StrictMode>
