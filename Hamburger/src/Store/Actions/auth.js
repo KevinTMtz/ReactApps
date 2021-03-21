@@ -12,19 +12,23 @@ export const authSuccess = (token, userId) => ({
   userId: userId,
 });
 
-export const logout = () => {
-  return {
-    type: actionTypes.AUTH_INITIATE_LOGOUT,
-  };
-};
+export const logout = () => ({
+  type: actionTypes.AUTH_INITIATE_LOGOUT,
+});
+
+export const logoutSucceed = () => ({
+  type: actionTypes.AUTH_LOGOUT,
+});
 
 export const authFailed = (error) => ({
   type: actionTypes.AUTH_FAILED,
   error: error,
 });
 
-export const checkAuthTimeout = (expirationTime) => (dispatch) =>
-  setTimeout(() => dispatch(logout()), expirationTime * 1000);
+export const checkAuthTimeout = (expirationTime) => ({
+  type: actionTypes.AUTH_CHECK_TIMEOUT,
+  expirationTime: expirationTime,
+});
 
 export const auth = (email, password, isSignUp) => (dispatch) => {
   dispatch(authStart());
