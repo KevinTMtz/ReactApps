@@ -5,6 +5,7 @@ import {
   logoutSaga,
   checkAuthTimeoutSaga,
   authUserSaga,
+  authCheckState,
 } from './auth';
 
 export function* watchAuth() {
@@ -14,4 +15,5 @@ export function* watchAuth() {
   );
   yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
   yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+  yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckState);
 }
