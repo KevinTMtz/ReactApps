@@ -2,3 +2,30 @@ body {
   margin: 0;
   font-family: sans-serif;
 }
+
+.App {
+  text-align: center;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+button {
+  margin: 16px 0px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  transition: all 0.3s ease-out;
+  background-color: #8e44ad;
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
