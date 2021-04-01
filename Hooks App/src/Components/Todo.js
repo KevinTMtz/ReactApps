@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const Todo = (props) => {
   const [inputState, setInputState] = useState('');
+  const [todoList, setTodoList] = useState(['Code all day!']);
 
   return (
     <React.Fragment>
@@ -12,8 +13,21 @@ const Todo = (props) => {
         value={inputState}
       />
       <br />
-      <button type='text'>Add</button>
-      <ul />
+      <button
+        type='text'
+        onClick={() => {
+          setTodoList(todoList.concat(inputState));
+          setInputState('');
+        }}
+        disabled={inputState === ''}
+      >
+        Add
+      </button>
+      <ul>
+        {todoList.map((todo, index) => (
+          <li key={index}>{todo}</li>
+        ))}
+      </ul>
     </React.Fragment>
   );
 };
