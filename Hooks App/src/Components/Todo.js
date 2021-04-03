@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Todo = () => {
   const [inputState, setInputState] = useState('');
-  const [todoList, setTodoList] = useState(['Code all day!']);
+  const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json'
+      )
+      .then((result) => {
+        const todos = [];
+        for (const key in result.data) {
+          todos.push({ id: key, name: result.data[key].name });
+        }
+        setTodoList(todos);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <React.Fragment>
@@ -25,10 +40,15 @@ const Todo = () => {
               { name: inputState }
             )
             .then(() => {
-              setTodoList(todoList.concat(inputState));
+              setTodoList(
+                todoList.concat({
+                  id: Math.random(),
+                  name: inputState,
+                })
+              );
               setInputState('');
             })
-            .catch((error) => alert(error));
+            .catch((error) => console.log(error));
         }}
         disabled={inputState === ''}
       >
@@ -36,8 +56,8 @@ const Todo = () => {
       </button>
 
       <ul>
-        {todoList.map((todo, index) => (
-          <li key={index}>{todo}</li>
+        {todoList.map((todo) => (
+          <li key={todo.id}>{todo.name}</li>
         ))}
       </ul>
     </React.Fragment>
