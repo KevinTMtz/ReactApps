@@ -1,5 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-const Auth = (props) => <h2>Auth Component</h2>;
+import AuthContext from '../auth-context';
+
+const Auth = () => {
+  const auth = useContext(AuthContext);
+
+  return (
+    <button onClick={auth.login}>
+      {auth.status ? 'Logout' : 'Login'}
+    </button>
+  );
+};
 
 export default Auth;
