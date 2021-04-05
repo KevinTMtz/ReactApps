@@ -47,4 +47,5 @@ li {
   margin: 16px auto;
   border: 2px solid #ccc;
   border-radius: 10px;
+  user-select: none;
 }

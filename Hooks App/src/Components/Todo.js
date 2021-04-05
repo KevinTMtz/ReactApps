@@ -1,9 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 
 const Todo = () => {
   const [inputState, setInputState] = useState('');
-  const [todoList, setTodoList] = useState([]);
+
+  const todoListReducer = (state, action) => {
+    switch (action.type) {
+      case 'ADD':
+        return state.concat(action.payload);
+      case 'SET':
+        return action.payload;
+      case 'REMOVE':
+        return state.filter((todo) => todo.id !== action.payload);
+      default:
+        return state;
+    }
+  };
+  const [todoList, dispatch] = useReducer(todoListReducer, []);
 
   useEffect(() => {
     axios
@@ -15,10 +28,40 @@ const Todo = () => {
         for (const key in result.data) {
           todos.push({ id: key, name: result.data[key].name });
         }
-        setTodoList(todos);
+        dispatch({ type: 'SET', payload: todos });
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const todoAddHandler = () => {
+    axios
+      .post(
+        'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json',
+        { name: inputState }
+      )
+      .then((response) => {
+        dispatch({
+          type: 'ADD',
+          payload: {
+            id: response.data.name,
+            name: inputState,
+          },
+        });
+        setInputState('');
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const todoRemoveHandler = (todoID) => {
+    axios
+      .delete(
+        `https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems/${todoID}.json`
+      )
+      .then(() => {
+        dispatch({ type: 'REMOVE', payload: todoID });
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <React.Fragment>
@@ -33,23 +76,7 @@ const Todo = () => {
 
       <button
         type='text'
-        onClick={() => {
-          axios
-            .post(
-              'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json',
-              { name: inputState }
-            )
-            .then(() => {
-              setTodoList(
-                todoList.concat({
-                  id: Math.random(),
-                  name: inputState,
-                })
-              );
-              setInputState('');
-            })
-            .catch((error) => console.log(error));
-        }}
+        onClick={todoAddHandler}
         disabled={inputState === ''}
       >
         Add
@@ -57,7 +84,12 @@ const Todo = () => {
 
       <ul>
         {todoList.map((todo) => (
-          <li key={todo.id}>{todo.name}</li>
+          <li
+            key={todo.id}
+            onClick={todoRemoveHandler.bind(this, todo.id)}
+          >
+            {todo.name}
+          </li>
         ))}
       </ul>
     </React.Fragment>
