@@ -1,5 +1,12 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react';
 import axios from 'axios';
+
+import List from './List';
 
 const Todo = () => {
   const [inputState, setInputState] = useState('');
@@ -82,16 +89,12 @@ const Todo = () => {
         Add
       </button>
 
-      <ul>
-        {todoList.map((todo) => (
-          <li
-            key={todo.id}
-            onClick={todoRemoveHandler.bind(this, todo.id)}
-          >
-            {todo.name}
-          </li>
-        ))}
-      </ul>
+      {useMemo(
+        () => (
+          <List items={todoList} onClick={todoRemoveHandler} />
+        ),
+        [todoList]
+      )}
     </React.Fragment>
   );
 };
