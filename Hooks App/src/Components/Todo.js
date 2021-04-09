@@ -1,16 +1,10 @@
-import React, {
-  useEffect,
-  useMemo,
-  useReducer,
-  useState,
-} from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 import axios from 'axios';
 
 import List from './List';
+import { useFormInput } from '../Hooks/Forms';
 
 const Todo = () => {
-  const [inputState, setInputState] = useState('');
-
   const todoListReducer = (state, action) => {
     switch (action.type) {
       case 'ADD':
@@ -24,6 +18,7 @@ const Todo = () => {
     }
   };
   const [todoList, dispatch] = useReducer(todoListReducer, []);
+  const todoInput = useFormInput();
 
   useEffect(() => {
     axios
@@ -44,17 +39,17 @@ const Todo = () => {
     axios
       .post(
         'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json',
-        { name: inputState }
+        { name: todoInput.value }
       )
       .then((response) => {
         dispatch({
           type: 'ADD',
           payload: {
             id: response.data.name,
-            name: inputState,
+            name: todoInput.value,
           },
         });
-        setInputState('');
+        todoInput.clearValue();
       })
       .catch((error) => console.log(error));
   };
@@ -75,8 +70,8 @@ const Todo = () => {
       <input
         type='text'
         placeholder='Todo'
-        onChange={(event) => setInputState(event.target.value)}
-        value={inputState}
+        onChange={todoInput.onChange}
+        value={todoInput.value}
       />
 
       <br />
@@ -84,7 +79,7 @@ const Todo = () => {
       <button
         type='text'
         onClick={todoAddHandler}
-        disabled={inputState === ''}
+        disabled={todoInput.value === ''}
       >
         Add
       </button>
