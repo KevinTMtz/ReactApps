@@ -41,7 +41,7 @@ const removeIngredient = (state, action) =>
     building: true,
   });
 
-const setIngedient = (state, action) =>
+const setIngredient = (state, action) =>
   updateObject(state, {
     ingredients: action.ingredients,
     totalPrice: initialState.totalPrice,
@@ -56,7 +56,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.REMOVE_INGREDIENT:
       return removeIngredient(state, action);
     case actionTypes.SET_INGREDIENTS:
-      return setIngedient(state, action);
+      return setIngredient(state, action);
     case actionTypes.FETCH_INGREDIENTS_FAILED:
       return updateObject(state, { error: true });
     default:
