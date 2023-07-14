@@ -5,6 +5,12 @@
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   animation: animate-in 1s ease-out forwards;
+  text-decoration: none;
+}
+
+.post Link {
+  width: 100%;
+  height: 100%;
 }
 
 .author {

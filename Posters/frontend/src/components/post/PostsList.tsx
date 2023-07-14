@@ -1,40 +1,13 @@
-import { useState } from 'react';
-
-import NewPost from './NewPost';
 import Post from './Post';
-import Modal from '../Modal';
 import { PostData } from '../../models/PostData';
 import classes from './PostsList.module.css';
+import { useLoaderData } from 'react-router-dom';
 
-const PostsList = ({
-  modalVisible,
-  hideModal,
-}: {
-  modalVisible: boolean;
-  hideModal: () => void;
-}) => {
-  const [posts, setPosts] = useState<PostData[]>([]);
-
-  const addPost = (post: PostData) => {
-    fetch('http://localhost:8080/posts', {
-      method: 'POST',
-      body: JSON.stringify(post),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    setPosts((currentPosts) => [...currentPosts, post]);
-  };
+const PostsList = () => {
+  const posts = useLoaderData() as PostData[];
 
   return (
     <>
-      {modalVisible && (
-        <Modal setModalVisible={hideModal}>
-          <NewPost onCancel={hideModal} addPost={addPost} />
-        </Modal>
-      )}
-
       {posts.length > 0 ? (
         <li className={classes.posts}>
           {posts.map((post, index) => (
@@ -43,7 +16,8 @@ const PostsList = ({
         </li>
       ) : (
         <div className={classes.noPosts}>
-          <h3>Create some posts</h3>
+          <h3>This is a bit empty</h3>
+          <p>Create some posts!</p>
         </div>
       )}
     </>
