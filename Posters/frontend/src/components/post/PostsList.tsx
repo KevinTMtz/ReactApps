@@ -16,6 +16,14 @@ const PostsList = ({
   const [posts, setPosts] = useState<PostData[]>([]);
 
   const addPost = (post: PostData) => {
+    fetch('http://localhost:8080/posts', {
+      method: 'POST',
+      body: JSON.stringify(post),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
     setPosts((currentPosts) => [...currentPosts, post]);
   };
 
