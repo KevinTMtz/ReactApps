@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ExpenseData } from '../../../interfaces/ExpenseData';
+import { ExpenseData } from '../../../../interfaces/ExpenseData';
 import './ExpenseForm.css';
 
 const ExpenseForm = ({

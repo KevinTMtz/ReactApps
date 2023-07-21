@@ -1,5 +1,5 @@
 import { ExpenseData } from '../../../interfaces/ExpenseData';
-import ExpenseItem from '../ExpenseItem/ExpenseItem';
+import ExpenseItem from './ExpenseItem/ExpenseItem';
 
 const ExpensesList = ({ expenses }: { expenses: ExpenseData[] }) => {
   return (

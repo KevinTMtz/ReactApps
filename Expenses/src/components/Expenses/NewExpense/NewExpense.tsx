@@ -1,5 +1,5 @@
 import { ExpenseData } from '../../../interfaces/ExpenseData';
-import ExpenseForm from '../ExpenseForm/ExpenseForm';
+import ExpenseForm from './ExpenseForm/ExpenseForm';
 import Card from '../../UI/Card/Card';
 import './NewExpense.css';
 
