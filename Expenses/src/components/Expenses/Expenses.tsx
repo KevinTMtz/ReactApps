@@ -4,8 +4,9 @@ import { ExpenseData } from '../../interfaces/ExpenseData';
 import Card from '../UI/Card/Card';
 import NewExpense from './NewExpense/NewExpense';
 import ExpensesFilter from './ExpensesFilter/ExpensesFilter';
-import './Expenses.css';
 import ExpensesList from './ExpensesList/ExpensesList';
+import ExpensesChart from './ExpensesChart/ExpensesChart';
+import './Expenses.css';
 
 const ExpenseList = () => {
   const [expenses, setExpenses] = useState<ExpenseData[]>([
@@ -72,6 +73,8 @@ const ExpenseList = () => {
             yearFilter={yearFilter}
             setYearFilter={setYearFilter}
           />
+
+          <ExpensesChart expenses={getExpensesfilterByYear()} />
 
           <ExpensesList expenses={getExpensesfilterByYear()} />
         </Card>
