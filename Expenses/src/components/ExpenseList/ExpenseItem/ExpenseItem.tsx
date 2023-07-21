@@ -1,13 +1,7 @@
 import Card from '../../UI/Card/Card';
 import ExpenseDate from './ExpenseDate/ExpenseDate';
+import { ExpenseData } from '../../../interfaces/ExpenseData';
 import './ExpenseItem.css';
-
-interface ExpenseData {
-  id: string;
-  date: Date;
-  title: string;
-  amount: number;
-}
 
 const ExpenseItem = ({ expense }: { expense: ExpenseData }) => (
   <Card className='expense-item'>

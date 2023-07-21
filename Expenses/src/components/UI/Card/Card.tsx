@@ -4,7 +4,7 @@ const Card = ({
   children,
   className,
 }: {
-  children: JSX.Element[];
+  children: JSX.Element | JSX.Element[];
   className: string;
 }) => <div className={`card ${className}`}>{children}</div>;
 
