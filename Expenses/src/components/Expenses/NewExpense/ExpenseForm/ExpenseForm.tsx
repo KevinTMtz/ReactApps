@@ -5,8 +5,10 @@ import './ExpenseForm.css';
 
 const ExpenseForm = ({
   onSaveExpenseData,
+  showFormHandler,
 }: {
   onSaveExpenseData: (newExpenseData: ExpenseData) => void;
+  showFormHandler: () => void;
 }) => {
   const defaultValue: ExpenseData = {
     title: '',
@@ -86,6 +88,7 @@ const ExpenseForm = ({
       </div>
 
       <div className='new-expense__actions'>
+        <button onClick={showFormHandler}>Cancel</button>
         <button type='submit'>Add Expense</button>
       </div>
     </form>
