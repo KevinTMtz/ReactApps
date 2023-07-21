@@ -1,4 +1,4 @@
-import ExpenseList from './components/ExpenseList/ExpenseList';
+import ExpenseList from './components/Expenses/Expenses';
 import './App.css';
 
 const App = () => (
