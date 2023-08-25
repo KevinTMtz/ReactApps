@@ -42,6 +42,14 @@ const InputForm = ({
     );
   };
 
+  let submitDisabledCheck = false;
+  Object.keys(investmentData).forEach((key) => {
+    const strValue = investmentData[key as keyof typeof investmentData];
+
+    if (strValue.length === 0 || !Number(strValue) || Number(strValue) < 0)
+      submitDisabledCheck = true;
+  });
+
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes['input-group']}>
@@ -54,6 +62,7 @@ const InputForm = ({
               inputChangeHandler('current-savings', event.target.value)
             }
             value={investmentData['current-savings']}
+            required
           />
         </p>
         <p>
@@ -65,6 +74,7 @@ const InputForm = ({
               inputChangeHandler('yearly-contribution', event.target.value)
             }
             value={investmentData['yearly-contribution']}
+            required
           />
         </p>
       </div>
@@ -91,6 +101,7 @@ const InputForm = ({
               inputChangeHandler('duration', event.target.value)
             }
             value={investmentData['duration']}
+            required
           />
         </p>
       </div>
@@ -102,7 +113,11 @@ const InputForm = ({
         >
           Reset
         </button>
-        <button type='submit' className={classes.button}>
+        <button
+          type='submit'
+          className={classes.button}
+          disabled={submitDisabledCheck}
+        >
           Calculate
         </button>
       </p>

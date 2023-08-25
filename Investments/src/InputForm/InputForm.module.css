@@ -47,6 +47,12 @@
   font-size: 1rem;
 }
 
+.button:disabled {
+  opacity: 0.5;
+  background: linear-gradient(180deg, #5b5b5b, #404040);
+  cursor: auto;
+}
+
 .buttonAlt {
   font-family: 'Roboto Condensed', sans-serif;
   border: none;
