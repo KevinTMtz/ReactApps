@@ -1,45 +1,63 @@
+import { useState } from 'react';
+
 import Header from './Header/Header';
 import InputForm from './InputForm/InputForm';
 import ResultsTable from './ResultsTable/ResultsTable';
+import { InvestmentCalculation } from './Interfaces/InvestmentCalculation';
+import { InvestmentData } from './Interfaces/InvestmentData';
+import classes from './App.module.css';
 
 const App = () => {
-  const calculateHandler = (userInput: any) => {
-    // Should be triggered when form is submitted
-    // You might not directly want to bind it to the submit event on the form though...
+  const [investmentData, setInvestmentData] = useState<
+    InvestmentData | undefined
+  >();
 
-    const yearlyData = []; // per-year results
+  const onCalculate = (newInvestmentData: InvestmentData) => {
+    setInvestmentData(newInvestmentData);
+  };
 
-    let currentSavings = +userInput['current-savings']; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput['yearly-contribution']; // as mentioned: feel free to change the shape...
-    const expectedReturn = +userInput['expected-return'] / 100;
-    const duration = +userInput['duration'];
+  const investmentYearly: InvestmentCalculation[] = [];
+  if (investmentData) {
+    let currentSavings = +investmentData['current-savings'];
+    const yearlyContribution = +investmentData['yearly-contribution'];
+    const expectedReturn = +investmentData['expected-return'] / 100;
+    const duration = +investmentData['duration'];
 
-    // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * expectedReturn;
       currentSavings += yearlyInterest + yearlyContribution;
-      yearlyData.push({
-        // feel free to change the shape of the data pushed to the array!
+      investmentYearly.push({
         year: i + 1,
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
         yearlyContribution: yearlyContribution,
       });
     }
+  }
 
-    // do something with yearlyData ...
+  const deleteInvestment = () => {
+    setInvestmentData(undefined);
   };
 
   return (
     <div>
       <Header />
 
-      <InputForm />
+      <InputForm
+        onCalculate={onCalculate}
+        deleteInvestment={deleteInvestment}
+      />
 
-      {/* Todo: Show below table conditionally (only once result data is available) */}
-      {/* Show fallback text if no data is available */}
+      {!investmentData && (
+        <p className={classes.noYearlyData}>Input investment data.</p>
+      )}
 
-      <ResultsTable />
+      {investmentData && (
+        <ResultsTable
+          investmentYearly={investmentYearly}
+          initialInvestment={+investmentData['current-savings']}
+        />
+      )}
     </div>
   );
 };

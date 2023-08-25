@@ -1,5 +1,7 @@
+import classes from './Header.module.css';
+
 const Header = () => (
-  <header className='header'>
+  <header className={classes.header}>
     <h1>Investment Calculator</h1>
   </header>
 );

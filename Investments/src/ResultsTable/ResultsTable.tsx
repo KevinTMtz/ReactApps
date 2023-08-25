@@ -1,5 +1,21 @@
-const ResultsTable = () => (
-  <table className='result'>
+import { InvestmentCalculation } from '../Interfaces/InvestmentCalculation';
+import classes from './ResultsTable.module.css';
+
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const ResultsTable = ({
+  investmentYearly,
+  initialInvestment,
+}: {
+  investmentYearly: InvestmentCalculation[];
+  initialInvestment: number;
+}) => (
+  <table className={classes.result}>
     <thead>
       <tr>
         <th>Year</th>
@@ -10,13 +26,27 @@ const ResultsTable = () => (
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>YEAR NUMBER</td>
-        <td>TOTAL SAVINGS END OF YEAR</td>
-        <td>INTEREST GAINED IN YEAR</td>
-        <td>TOTAL INTEREST GAINED</td>
-        <td>TOTAL INVESTED CAPITAL</td>
-      </tr>
+      {investmentYearly.map(
+        (yearData: InvestmentCalculation, index: number) => (
+          <tr key={`investment-${yearData.year}-${index}`}>
+            <td>{yearData.year}</td>
+            <td>{currencyFormatter.format(yearData.savingsEndOfYear)}</td>
+            <td>{currencyFormatter.format(yearData.yearlyInterest)}</td>
+            <td>
+              {currencyFormatter.format(
+                yearData.savingsEndOfYear -
+                  initialInvestment -
+                  yearData.yearlyContribution * yearData.year,
+              )}
+            </td>
+            <td>
+              {currencyFormatter.format(
+                initialInvestment + yearData.yearlyContribution * yearData.year,
+              )}
+            </td>
+          </tr>
+        ),
+      )}
     </tbody>
   </table>
 );
