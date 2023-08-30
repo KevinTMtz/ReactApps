@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 import classes from './Button.module.css';
 
 const Button = ({
@@ -9,7 +7,7 @@ const Button = ({
 }: {
   type?: 'button' | 'submit' | 'reset' | undefined;
   onClick?: () => void;
-  children: ReactNode;
+  children: JSX.Element | string | undefined;
 }) => (
   <button className={classes.button} type={type || 'button'} onClick={onClick}>
     {children}

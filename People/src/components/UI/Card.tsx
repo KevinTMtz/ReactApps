@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 import classes from './Card.module.css';
 
 const Card = ({
@@ -7,7 +5,7 @@ const Card = ({
   children,
 }: {
   className: string;
-  children: ReactNode;
+  children: JSX.Element | (JSX.Element | undefined)[];
 }) => <div className={`${classes.card} ${className}`}>{children}</div>;
 
 export default Card;
