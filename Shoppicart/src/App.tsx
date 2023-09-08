@@ -1,11 +1,15 @@
-const App = () => {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <h1>Shoppicart</h1>
-      </header>
-    </div>
-  );
-};
+import Cart from './components/Cart/Cart';
+import Header from './components/Layout/Header/Header';
+import Meals from './components/Meals/Meals';
+
+const App = () => (
+  <div className='App'>
+    <Cart />
+    <Header />
+    <main>
+      <Meals />
+    </main>
+  </div>
+);
 
 export default App;
