@@ -3,4 +3,5 @@ export interface MealData {
   name: string;
   description: string;
   price: number;
+  amount?: number;
 }

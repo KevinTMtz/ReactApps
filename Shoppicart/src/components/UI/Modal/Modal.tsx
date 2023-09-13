@@ -6,7 +6,7 @@ import classes from './Modal.module.css';
 const ModalOverlay = ({
   children,
 }: {
-  children: JSX.Element | JSX.Element[] | string | string[];
+  children: JSX.Element | string | boolean | (JSX.Element | string | boolean)[];
 }) => (
   <div className={classes.modal}>
     <div className={classes.content}>{children}</div>
@@ -14,15 +14,17 @@ const ModalOverlay = ({
 );
 
 const Modal = ({
+  onClose,
   children,
 }: {
-  children: JSX.Element | JSX.Element[] | string | string[];
+  onClose: () => void;
+  children: JSX.Element | string | boolean | (JSX.Element | string | boolean)[];
 }) => {
   const portalElement = document.getElementById('overlays') as HTMLElement;
 
   return (
     <>
-      {ReactDOM.createPortal(<Backdrop />, portalElement)}
+      {ReactDOM.createPortal(<Backdrop onClose={onClose} />, portalElement)}
       {ReactDOM.createPortal(
         <ModalOverlay>{children}</ModalOverlay>,
         portalElement,
