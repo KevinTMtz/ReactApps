@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import AuthContext from '../auth-context';
 
@@ -8,9 +8,7 @@ const Header = (props) => {
   return (
     <header>
       <button onClick={props.onLoadAuth}>Auth</button>
-      {auth.status && (
-        <button onClick={props.onLoadTodos}>Todo List</button>
-      )}
+      {auth.status && <button onClick={props.onLoadTodos}>Todo List</button>}
     </header>
   );
 };

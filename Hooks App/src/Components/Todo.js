@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useReducer } from 'react';
+import { Fragment, useEffect, useMemo, useReducer } from 'react';
 import axios from 'axios';
 
 import List from './List';
@@ -23,7 +23,7 @@ const Todo = () => {
   useEffect(() => {
     axios
       .get(
-        'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json'
+        'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json',
       )
       .then((result) => {
         const todos = [];
@@ -39,7 +39,7 @@ const Todo = () => {
     axios
       .post(
         'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json',
-        { name: todoInput.value }
+        { name: todoInput.value },
       )
       .then((response) => {
         dispatch({
@@ -57,7 +57,7 @@ const Todo = () => {
   const todoRemoveHandler = (todoID) => {
     axios
       .delete(
-        `https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems/${todoID}.json`
+        `https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems/${todoID}.json`,
       )
       .then(() => {
         dispatch({ type: 'REMOVE', payload: todoID });
@@ -66,7 +66,7 @@ const Todo = () => {
   };
 
   return (
-    <React.Fragment>
+    <Fragment>
       <input
         type='text'
         placeholder='Todo'
@@ -88,9 +88,9 @@ const Todo = () => {
         () => (
           <List items={todoList} onClick={todoRemoveHandler} />
         ),
-        [todoList]
+        [todoList],
       )}
-    </React.Fragment>
+    </Fragment>
   );
 };
 

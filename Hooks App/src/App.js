@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
+import AuthContext from './auth-context';
 import Header from './Components/Header';
 import Todo from './Components/Todo';
 import Auth from './Components/Auth';
-import AuthContext from './auth-context';
+import ForwardCounter from './Components/Counter/ForwardCounter';
+import BackwardCounter from './Components/Counter/BackwardCounter';
+import Card from './Components/UI/Card';
 
 function App() {
   const [currentComponent, setCurrentComponent] = useState('auth');
@@ -19,17 +22,23 @@ function App() {
 
   return (
     <div className='App'>
-      <AuthContext.Provider
-        value={{ status: loggedIn, login: login }}
-      >
+      <AuthContext.Provider value={{ status: loggedIn, login: login }}>
         <h1>Hooks App</h1>
-        <Header
-          onLoadTodos={switchPage.bind(this, 'todos')}
-          onLoadAuth={switchPage.bind(this, 'auth')}
-        />
-        <br />
-        {currentComponent === 'auth' ? <Auth /> : <Todo />}
+        <Card>
+          <Header
+            onLoadTodos={switchPage.bind(this, 'todos')}
+            onLoadAuth={switchPage.bind(this, 'auth')}
+          />
+          <br />
+          {currentComponent === 'auth' ? <Auth /> : <Todo />}
+        </Card>
       </AuthContext.Provider>
+
+      <div>
+        <h1>Counters</h1>
+        <ForwardCounter />
+        <BackwardCounter />
+      </div>
     </div>
   );
 }
