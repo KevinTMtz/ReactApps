@@ -26,3 +26,5 @@ export const useFormInput = () => {
     validity,
   };
 };
+
+export default useFormInput;

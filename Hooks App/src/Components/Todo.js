@@ -1,10 +1,14 @@
-import { Fragment, useEffect, useMemo, useReducer } from 'react';
-import axios from 'axios';
+import { Fragment, useCallback, useEffect, useMemo, useReducer } from 'react';
 
 import List from './List';
-import { useFormInput } from '../Hooks/Forms';
+import useFormInput from '../Hooks/useForms';
+import useHttp from '../Hooks/useHTTP';
 
 const Todo = () => {
+  const baseAPIUrl = 'https://angular-http-457b3-default-rtdb.firebaseio.com/';
+
+  const { isLoading, error, sendRequest } = useHttp();
+
   const todoListReducer = (state, action) => {
     switch (action.type) {
       case 'ADD':
@@ -17,53 +21,56 @@ const Todo = () => {
         return state;
     }
   };
+
   const [todoList, dispatch] = useReducer(todoListReducer, []);
+
   const todoInput = useFormInput();
 
   useEffect(() => {
-    axios
-      .get(
-        'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json',
-      )
-      .then((result) => {
-        const todos = [];
-        for (const key in result.data) {
-          todos.push({ id: key, name: result.data[key].name });
-        }
-        dispatch({ type: 'SET', payload: todos });
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    sendRequest({ url: `${baseAPIUrl}/todoListItems.json` }, (result) => {
+      const todos = [];
+      for (const key in result) {
+        todos.push({ id: key, name: result[key].name });
+      }
+      dispatch({ type: 'SET', payload: todos });
+    });
+  }, [sendRequest]);
 
   const todoAddHandler = () => {
-    axios
-      .post(
-        'https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems.json',
-        { name: todoInput.value },
-      )
-      .then((response) => {
+    sendRequest(
+      {
+        url: `${baseAPIUrl}/todoListItems.json`,
+        method: 'POST',
+        header: { 'Content-Type': 'application/json' },
+        body: { name: todoInput.value },
+      },
+      (response) => {
         dispatch({
           type: 'ADD',
           payload: {
-            id: response.data.name,
+            id: response.name,
             name: todoInput.value,
           },
         });
         todoInput.clearValue();
-      })
-      .catch((error) => console.log(error));
+      },
+    );
   };
 
-  const todoRemoveHandler = (todoID) => {
-    axios
-      .delete(
-        `https://hooks-app-131b4-default-rtdb.firebaseio.com/todoListItems/${todoID}.json`,
-      )
-      .then(() => {
-        dispatch({ type: 'REMOVE', payload: todoID });
-      })
-      .catch((error) => console.log(error));
-  };
+  const todoRemoveHandler = useCallback(
+    (todoID) => {
+      sendRequest(
+        {
+          url: `${baseAPIUrl}/todoListItems/${todoID}.json`,
+          method: 'DELETE',
+        },
+        () => {
+          dispatch({ type: 'REMOVE', payload: todoID });
+        },
+      );
+    },
+    [sendRequest],
+  );
 
   return (
     <Fragment>
@@ -84,11 +91,13 @@ const Todo = () => {
         Add
       </button>
 
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
       {useMemo(
         () => (
           <List items={todoList} onClick={todoRemoveHandler} />
         ),
-        [todoList],
+        [todoList, todoRemoveHandler],
       )}
     </Fragment>
   );
