@@ -1,8 +1,8 @@
-import SimpleInput from './components/SimpleInput';
+import BasicForm from './components/BasicForm';
 
 const App = () => (
   <div className='app'>
-    <SimpleInput />
+    <BasicForm />
   </div>
 );
 
